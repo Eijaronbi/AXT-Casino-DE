@@ -9,6 +9,7 @@ import { BrandMark } from './brand';
 type Panel = 'login' | 'signup' | 'search' | 'providers' | 'languages' | 'notifications' | 'support' | 'forgot' | null;
 type UIState = { open: (panel: Panel, category?: string) => void; toggleMenu: () => void };
 const UI = createContext<UIState | null>(null);
+const accountUrl = 'https://axecasmedia.com/a3zplx4yn';
 function useUI() {
   const value = useContext(UI);
   if (!value) throw new Error('Casino controls require CasinoUI');
@@ -18,7 +19,10 @@ function useUI() {
 export function ActionButton({ action, category, children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { action: Panel | 'menu'; category?: string }) {
   const ui = useUI();
   return <button {...props} type="button" onClick={() => {
-    if (action === 'login' || action === 'signup') return;
+    if (action === 'login' || action === 'signup') {
+      window.location.assign(accountUrl);
+      return;
+    }
     if (action === 'menu') ui.toggleMenu();
     else ui.open(action, category);
   }}>{children}</button>;
