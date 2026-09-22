@@ -26,7 +26,7 @@ export function Sidebar() {
       <details className="side-group"><summary className="side-item"><ColorIcon name="chip2" /><span>Live Casino</span><Icon name="chevronDown" /></summary><div className="side-submenu">{['Live','Blackjack','Roulette','Game Shows','Baccarat','Poker','Cards'].map(title=><a key={title} href={external(`live/games/${title.toLowerCase().replace(' ','_')}`)} target="_blank" rel="noreferrer">{title}</a>)}</div></details>
       {[['Tournaments','tournaments','golden'],['VIP','vip','crown'],['Payments','payments','cash']].map(([title,route,icon])=><a className="side-item" href={external(route)} target="_blank" rel="noreferrer" key={route}><ColorIcon name={icon}/><span>{title}</span></a>)}
     </nav>
-    <div className="sidebar-bottom"><ActionButton action="languages" className="drawer-language button secondary"><Image src="/reference/cdn/i/flags/square/en.svg" width={24} height={24} alt="" unoptimized />English<Icon name="chevronDown" /></ActionButton><div className="social-links"><a className="button secondary square" href="https://t.me/axecasino/" target="_blank" rel="noreferrer" aria-label="Telegram"><Icon name="telegram" /></a><a className="button secondary square" href="https://www.instagram.com/axe_casino/" target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a></div></div>
+    <div className="sidebar-bottom"><ActionButton action="languages" className="drawer-language button secondary"><Image src="/reference/cdn/i/flags/square/en.svg" width={24} height={24} alt="" unoptimized />English<Icon name="chevronDown" /></ActionButton></div>
   </aside>;
 }
 
