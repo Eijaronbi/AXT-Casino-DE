@@ -1,6 +1,6 @@
 # AXT Casino — Deutsche Version
 
-German-market front end for the AXT Casino brand, implemented directly in this folder with Next.js App Router, TypeScript, and Tailwind CSS. Localized end-to-end against the live DE reference experience, with `<html lang="de">` throughout.
+An educational adaptation of the AxeBonanza Casino homepage ([Mark-DeOriginal/AxeBonanza-Casino](https://github.com/Mark-DeOriginal/AxeBonanza-Casino)) for the German market — rebranded to AXT Casino and localized end-to-end against the live DE reference experience, with `<html lang="de">` throughout. Implemented directly in this folder with Next.js App Router, TypeScript, and Tailwind CSS.
 
 ## Run locally
 
