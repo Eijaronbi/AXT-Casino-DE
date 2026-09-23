@@ -44,6 +44,6 @@ Game search uses the sample catalog rather than the complete inventory. Winners 
 
 ## Reference assets
 
-The DE experience at https://www.axecasino.com/de/ served as the visual and structural reference for this localization. All runtime imagery is bundled locally under `public/reference`.
+The DE source was inspected at https://www.axecasino.com/de/ in September 2026. `reference/assets.json` records asset provenance; `reference/source.css` preserves the captured stylesheet for comparison. The scripts in `scripts/` document one-off collection from browser-exported bundles and are not required to build or run the site.
 
-Game artwork, provider trademarks, and brand assets belong to their respective owners. Obtain the relevant permissions before publishing or reusing them commercially. Bootstrap Icons are MIT licensed. Montserrat is distributed under the SIL Open Font License.
+Game artwork, provider trademarks, and brand assets belong to their respective owners. Reference assets are retained for this build exercise; obtain the relevant permissions before publishing or reusing them commercially. Bootstrap Icons are MIT licensed. Montserrat is distributed under the SIL Open Font License.
