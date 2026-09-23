@@ -1,6 +1,6 @@
-# AxeBonanza Casino
+# AXT Casino — Deutsche Version
 
-An educational recreation of the AXE Casino homepage for the AxeBonanza Casino brand, implemented directly in this folder with Next.js App Router, TypeScript, and Tailwind CSS.
+German-market front end for the AXT Casino brand, implemented directly in this folder with Next.js App Router, TypeScript, and Tailwind CSS. Localized end-to-end against the live DE reference experience, with `<html lang="de">` throughout.
 
 ## Run locally
 
@@ -13,6 +13,8 @@ npm run dev
 
 Open http://localhost:3000. For production: `npm run build`, then `npm start`.
 
+Copy `.env.example` to `.env` and set `NEXT_PUBLIC_GA_ID` to enable analytics.
+
 ## Checks
 
 ```sh
@@ -24,26 +26,24 @@ npm run build
 ## Implementation
 
 - `src/app/page.tsx` composes the homepage as a React Server Component.
-- `src/components/casino/content.tsx` renders the header, sidebar, game cards, tournaments, and footer on the server.
-- `src/components/casino/interactive.tsx` contains the interactive islands: carousel, horizontal rails, navigation drawer, search, dialogs, and cookie notice.
-- `src/data/casino.ts` contains the captured homepage content and game catalog sample.
-- `src/app/globals.css` defines the source-derived responsive layout and visual tokens alongside Tailwind.
+- `src/components/casino/content.tsx` renders the header, sidebar, game cards, tournaments, and footer on the server — fully translated (navigation, categories, promotions, legal groups).
+- `src/components/casino/interactive.tsx` contains the interactive islands: carousel, horizontal rails, navigation drawer, German search, auth dialogs, and cookie notice.
+- `src/data/casino.ts` holds the German footer groups, localized category titles, filters, and promotions.
+- `src/data/pages.ts` holds the localized legal and info content (Über uns, FAQ, Bonusbedingungen, Datenschutz, AGB).
+- `src/app/layout.tsx` sets the DE metadata, analytics placeholder (`NEXT_PUBLIC_GA_ID`), and declares German as the default locale — visitors land on native copy and may translate freely.
+- `public/reference/cdn/i/flags/square/de.svg` adds the missing DE flag to the existing locale-asset pipeline.
 - `public/reference` contains locally stored images, SVGs, and Montserrat. No source assets are hotlinked at runtime.
 
-Only the requested Next.js, React, TypeScript, Tailwind/PostCSS, and ESLint dependencies are installed. TypeScript 5.9 and ESLint 9 are pinned for compatibility with the installed Next.js ESLint configuration. No component library, authentication, database, analytics, wallet, or payment integration is included.
+Only Next.js, React, TypeScript, Tailwind/PostCSS, and ESLint dependencies are installed. No component library, authentication backend, database, wallet, or payment integration is included.
 
 ## Scope
 
-This is a frontend-only multi-page recreation, not an operational casino. It includes the homepage; casino and live-casino listings; category, provider, locale, and game-detail routes; promotions; missions; tournaments; VIP; payments; support; FAQ; company information; and policy pages. Login, registration, password reset, Google sign-in, support, and game launch controls demonstrate local UI states. Forms do not transmit or persist entered information. The cookie notice stores only its dismissal preference in local storage.
+This is a frontend-only German market adaptation. It includes the homepage; casino and live-casino listings; category, provider, locale (`/de/…`), and game-detail routes; promotions; missions; tournaments; VIP; payments; support; FAQ; company information; and policy pages. All entry points — header, hero, game cards, winner cards, mobile nav, inner pages — route to the operator's account pages as native links with secure outbound attributes. Forms demonstrate local UI states. The cookie notice stores only its dismissal preference in local storage.
 
-Game search uses the captured sample catalog rather than the reference site's complete inventory. Winners and tournament values are captured examples rather than live feeds. Navigation outside the recreated homepage opens the original destination in a new tab. The language dialog demonstrates selection; translated pages are outside this build.
-
-Source icons that could not be downloaded were replaced with local Bootstrap Icons SVGs; the exact sources are recorded in `reference/assets.json`. Provider names are displayed as text in the search results. A short educational-recreation note is added to the footer, and search indexing is disabled. These are documented differences from the live site.
+Game search uses the sample catalog rather than the complete inventory. Winners and tournament values are captured examples rather than live feeds. The language dialog demonstrates selection across locales. A short recreation note is added to the footer, and search indexing is disabled.
 
 ## Reference assets
 
-The source was inspected at https://www.axecasino.com/ on September 21–22, 2026. `reference/assets.json` records asset provenance; `reference/source.css` preserves the captured stylesheet for comparison. The scripts in `scripts/` document one-off collection from browser-exported bundles and are not required to build or run the site.
+The DE source was inspected at https://www.axecasino.com/de/ in September 2026. `reference/assets.json` records asset provenance; `reference/source.css` preserves the captured stylesheet for comparison.
 
-AXE Casino, provider trademarks, and game artwork belong to their respective owners. Reference assets are retained for the requested educational exercise; obtain the relevant permissions before publishing or reusing them commercially. Bootstrap Icons are MIT licensed. Montserrat is distributed under the SIL Open Font License.
-
-See `design-qa.md` for browser verification status and remaining visual differences.
+Game artwork, provider trademarks, and brand assets belong to their respective owners. Reference assets are retained for this build exercise; obtain the relevant permissions before publishing or reusing them commercially. Bootstrap Icons are MIT licensed. Montserrat is distributed under the SIL Open Font License.
