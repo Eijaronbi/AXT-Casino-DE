@@ -75,7 +75,13 @@ export function SitePage({ parts }: { parts: string[] }) {
     const category=categories.find(item=>item.id===locale[1]);
     const provider=first==='games'&&locale[1]==='all'&&locale[2]?locale[2]:undefined;
     const providerGames=provider?allGames.filter(item=>item.provider.toLowerCase().replaceAll(' ','')===provider.toLowerCase().replaceAll('and','').replaceAll('+','')):undefined;
-    content=<GameLibrary title={first==='live'?'Live Casino':provider?`${pretty(provider)} Games`:category?.title??pretty(locale[1]??'All Games')} games={providerGames?.length?providerGames:category?.games??allGames}/>;
+    let title:string;
+    if(first==='live') title='Live-Casino';
+    else if(provider) title=`${pretty(provider)} Spiele`;
+    else if(locale[1]==='all') title='Alle Spiele';
+    else title=category?.title??pretty(locale[1]??'Alle Spiele');
+    const list=providerGames?.length?providerGames:category?.games??allGames;
+    content=<GameLibrary title={title} games={list}/>;
   } else if(first==='promotions') content=<PromotionsPage/>;
   else if(first==='missions') content=<MissionsPage/>;
   else if(first==='tournaments') content=<TournamentPage/>;
