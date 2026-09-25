@@ -47,7 +47,7 @@ export function GameSections() {
 }
 
 export function LiveSections() {
-  return <div className="game-sections">{liveCategories.map((category,index)=><div className="section-group" key={category.id}><Rail title={category.title} count={category.count} icon={category.icon} category={category.id} href={`/de/live/games/${category.id}`}>{category.games.map(game=><GameCard key={game.id} game={game} priority={index===0}/>)}</Rail>{index===3&&<Tournaments/>}</div>)}</div>;
+  return <div className="game-sections">{liveCategories.map((category,index)=><div className="section-group" key={category.id}><Rail title={category.title} count={category.count} icon={category.icon} category={category.id} href={`/de/live/games/${category.id}`}>{category.games.slice(0,8).map(game=><GameCard key={game.id} game={game} priority={index===0}/>)}</Rail>{index===3&&<Tournaments/>}</div>)}</div>;
 }
 
 function Tournaments() {
