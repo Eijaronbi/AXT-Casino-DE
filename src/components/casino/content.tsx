@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { categories, filters, footerGroups, gameImage, siteAsset, type Game } from '@/data/casino';
+import { categories, filters, footerGroups, gameImage, liveCategories, liveFilters, siteAsset, type Game } from '@/data/casino';
 import { ActionButton, Rail } from './interactive';
 import { ColorIcon, Icon } from './icon';
 import { BrandMark } from './brand';
@@ -34,6 +34,10 @@ export function Filters() {
   return <nav className="catalog-filters" aria-label="Spielkategorien"><div className="filter-scroll">{filters.map(([id,title,icon])=><ActionButton action="search" category={id} className="button secondary filter-button" key={id}><ColorIcon name={icon} />{title}</ActionButton>)}</div><div className="providers-wrap"><ActionButton action="providers" className="button primary"><Icon name="app" />Anbieter</ActionButton></div></nav>;
 }
 
+export function LiveFilters() {
+  return <nav className="catalog-filters" aria-label="Live-Kategorien"><div className="filter-scroll">{liveFilters.map(([id,title,icon])=><a href={id==='live'?'/de/live':`/de/live/games/${id}`} target="_blank" rel="noreferrer noopener" referrerPolicy="no-referrer" className="button secondary filter-button" key={id}><ColorIcon name={icon} />{title}</a>)}</div><div className="providers-wrap"><ActionButton action="providers" className="button primary"><Icon name="app" />Anbieter</ActionButton></div></nav>;
+}
+
 function GameCard({game,priority=false}:{game:Game;priority?:boolean}) {
   return <article className="game-card"><Image className="game-art" src={gameImage(game)} alt={game.name} width={200} height={267} unoptimized loading={priority?'eager':'lazy'} /><div className="game-badges">{game.hot&&<span className="badge hot" title="Heiß"><Icon name="hot"/></span>}{game.fresh&&<span className="badge fresh" title="Neu"><Icon name="iconNew"/></span>}</div><div className="game-overlay"><strong>{game.name}</strong><ActionButton action="login" className="button green" aria-label={`${game.name} jetzt spielen`}>Jetzt Spielen</ActionButton><ActionButton action="login" className="button secondary" aria-label={`${game.name} Demo`}>Demo</ActionButton><small>{game.provider}</small></div></article>;
 }
@@ -42,9 +46,13 @@ export function GameSections() {
   return <div className="game-sections">{categories.map((category,index)=><div className="section-group" key={category.id}><Rail title={category.title} count={category.count} icon={category.icon} category={category.id}>{category.games.map(game=><GameCard key={game.id} game={game} priority={index===0}/>)}</Rail>{index===3&&<Tournaments/>}</div>)}</div>;
 }
 
+export function LiveSections() {
+  return <div className="game-sections">{liveCategories.map((category,index)=><div className="section-group" key={category.id}><Rail title={category.title} count={category.count} icon={category.icon} category={category.id} href={`/de/live/games/${category.id}`}>{category.games.map(game=><GameCard key={game.id} game={game} priority={index===0}/>)}</Rail>{index===3&&<Tournaments/>}</div>)}</div>;
+}
+
 function Tournaments() {
-  const items=[{badge:'Netzwerk',title:'Drops & Wins',image:'lady.webp',prize:'30.000.000 EUR',time:['101','12','45','28']},{badge:'Wöchentlich',title:'Wöchentliches BGaming-Turnier',image:'tournament_bgaming.webp',prize:'875 EUR + 800 FS',time:['5','13','30','28']},{badge:'Täglich',title:'Tägliches Freispiel-Turnier',image:'tournament_daily.webp',prize:'1210 FS',time:['0','13','30','28']}];
-  return <Rail title="Turniere" icon="tournamentsTrophy" tournament>{items.map(item=><article className="tournament-card" key={item.title}><Image src={siteAsset('cms/tournaments/'+item.image)} alt="" fill unoptimized sizes="(max-width:767px) 320px, 33vw"/><div className="tournament-copy"><span className="eyebrow">{item.badge}</span><h3>{item.title}</h3><span className="tournament-label">Verbleibende Zeit</span><div className="countdown">{item.time.map((value,i)=><span key={i}><b>{value}</b><small>{['T','S','M','S'][i]}</small></span>)}</div><span className="tournament-label">Preispool</span><strong className="prize">{item.prize}</strong><a href="/de/tournaments" target="_blank" rel="noreferrer noopener" referrerPolicy="no-referrer" className="button secondary">Details</a></div></article>)}</Rail>;
+  const items=[{badge:'Netzwerk',title:'Drops & Wins',image:'lady.webp',prize:'30.000.000 EUR',time:['101','12','45','28'],link:'/de/tournaments/drops-and-wins-2025'},{badge:'Wöchentlich',title:'Wöchentliches BGaming-Turnier',image:'tournament_bgaming.webp',prize:'875 EUR + 800 FS',time:['5','13','30','28'],link:'/de/tournaments/weekly-bgaming-tournament'},{badge:'Monatlich',title:'Live-Turnier',image:'lady.webp',prize:'1.000 EUR',time:['21','08','15','40'],link:'/de/tournaments/live-casino-tournament'},{badge:'Täglich',title:'Tägliches Freispiel-Turnier',image:'tournament_daily.webp',prize:'1210 FS',time:['0','13','30','28'],link:'/de/tournaments/daily-free-spins-tournament'}];
+  return <Rail title="Turniere" icon="tournamentsTrophy" tournament href="/de/tournaments">{items.map(item=><article className="tournament-card" key={item.title}><Image src={siteAsset('cms/tournaments/'+item.image)} alt="" fill unoptimized sizes="(max-width:767px) 320px, 33vw"/><div className="tournament-copy"><span className="eyebrow">{item.badge}</span><h3>{item.title}</h3><span className="tournament-label">Verbleibende Zeit</span><div className="countdown">{item.time.map((value,i)=><span key={i}><b>{value}</b><small>{['T','S','M','S'][i]}</small></span>)}</div><span className="tournament-label">Preispool</span><strong className="prize">{item.prize}</strong><a href={item.link} target="_blank" rel="noreferrer noopener" referrerPolicy="no-referrer" className="button secondary">Details</a></div></article>)}</Rail>;
 }
 
 export function Footer() {

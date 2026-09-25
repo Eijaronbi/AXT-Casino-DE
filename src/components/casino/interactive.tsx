@@ -157,7 +157,7 @@ export function Hero() {
   </section>;
 }
 
-export function Rail({ title, count, icon, category, children, tournament = false }: { title: string; count?: number; icon: string; category?: string; children: ReactNode; tournament?: boolean }) {
+export function Rail({ title, count, icon, category, children, tournament = false, href }: { title: string; count?: number; icon: string; category?: string; children: ReactNode; tournament?: boolean; href?: string }) {
   const rail = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   function move(direction: number) {
@@ -170,7 +170,7 @@ export function Rail({ title, count, icon, category, children, tournament = fals
     element.scrollTo({ left: next > end + 2 ? 0 : next < -2 ? end : next, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   }
   return <section className={`game-section${tournament ? ' tournament-section' : ''}`} id={category || 'tournaments'}>
-    <div className="section-heading"><h2><Icon name={icon} className="green-icon" />{title}{count !== undefined && <span>{count}</span>}</h2><div className="section-controls"><ActionButton action="search" category={category} className="button secondary small show-all">Alle anzeigen</ActionButton>{!tournament && <div className="rail-arrows"><button className="button secondary square small" aria-label={`Vorherige ${title}-Spiele`} onClick={() => move(-1)}><Icon name="arrowLeft" /></button><button className="button secondary square small" aria-label={`Nächste ${title}-Spiele`} onClick={() => move(1)}><Icon name="arrowRight" /></button></div>}</div></div>
+    <div className="section-heading"><h2><Icon name={icon} className="green-icon" />{title}{count !== undefined && <span>{count}</span>}</h2><div className="section-controls">{href?<a href={href} target="_blank" rel="noreferrer noopener" referrerPolicy="no-referrer" className="button secondary small show-all">Alle anzeigen</a>:<ActionButton action="search" category={category} className="button secondary small show-all">Alle anzeigen</ActionButton>}{!tournament && <div className="rail-arrows"><button className="button secondary square small" aria-label={`Vorherige ${title}-Spiele`} onClick={() => move(-1)}><Icon name="arrowLeft" /></button><button className="button secondary square small" aria-label={`Nächste ${title}-Spiele`} onClick={() => move(1)}><Icon name="arrowRight" /></button></div>}</div></div>
     <div className="rail-window"><div ref={rail} className={`card-rail${tournament ? ' tournament-rail' : ''}`} onScroll={() => { const element = rail.current; if (element) setProgress(element.scrollLeft / Math.max(1, element.scrollWidth - element.clientWidth)); }}>{children}</div></div>
     <div className="rail-progress"><span style={{ left: `${progress * 96}%` }} /></div>
   </section>;
